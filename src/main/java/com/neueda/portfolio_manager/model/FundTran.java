@@ -2,40 +2,55 @@ package com.neueda.portfolio_manager.model;
 
 import jakarta.persistence.*;
 
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "funds")
-public class Fund {
+@Table(name = "fund_tran")
+public class FundTran {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "rec_id")
-    private Long recId;
+    private Integer recId;
 
-    @Column(name = "tran_type")
+    @Column(name = "tran_type", length = 1, nullable = false)
+    @NotNull
     private String tranType;
 
-    @Column(name = "amount", precision = 12, scale = 4)
+    @Column(precision = 12, scale = 4, nullable = false)
+    @NotNull
     private BigDecimal amount;
 
-    @Column(name = "tran_time")
+    @Column(name = "tran_time", nullable = false)
+    @NotNull
     private LocalDateTime tranTime;
 
     @Column(name = "fund_manager_id")
-    private Long fundManagerId;
+    @NotNull
+    private Integer fundManagerId;
 
-    @Column(name = "fund_acc_balance", precision = 12, scale = 4)
+    @Column(name = "fund_acc_balance", precision = 12, scale = 4, nullable = false)
+    @NotNull
     private BigDecimal fundAccBalance;
 
-    @Column(name = "bank_acc_no")
+    @Column(name = "bank_acc_no", length = 50)
     private String bankAccNo;
 
-    public Long getRecId() {
+    public FundTran() {
+    }
+
+    public FundTran(Integer recId) {
+        this.recId = recId;
+    }
+
+
+    public Integer getRecId() {
         return recId;
     }
 
-    public void setRecId(Long recId) {
+    public void setRecId(Integer recId) {
         this.recId = recId;
     }
 
@@ -63,11 +78,11 @@ public class Fund {
         this.tranTime = tranTime;
     }
 
-    public Long getFundManagerId() {
+    public Integer getFundManagerId() {
         return fundManagerId;
     }
 
-    public void setFundManagerId(Long fundManagerId) {
+    public void setFundManagerId(Integer fundManagerId) {
         this.fundManagerId = fundManagerId;
     }
 

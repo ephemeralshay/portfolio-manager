@@ -7,9 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/tradebooks")
+@RequestMapping("/api/trade-books")
 public class TradeBookController {
 
     @Autowired
@@ -21,34 +22,33 @@ public class TradeBookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TradeBook> getTradeBookById(@PathVariable("id") Long id) {
-        TradeBook tradeBook = tradeBookService.getTradeBookById(id);
-        if (tradeBook != null) {
-            return ResponseEntity.ok(tradeBook);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<TradeBook> getTradeBookById(@PathVariable Integer id) {
+        Optional<TradeBook> tradeBook = tradeBookService.getTradeBookById(id);
+        return tradeBook.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public TradeBook createTradeBook(@RequestBody TradeBook tradeBook) {
-        return tradeBookService.saveTradeBook(tradeBook);
+    public ResponseEntity<TradeBook> createTradeBook(@RequestBody TradeBook tradeBook) {
+        TradeBook createdTradeBook = tradeBookService.saveTradeBook(tradeBook);
+        return ResponseEntity.ok(createdTradeBook);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TradeBook> updateTradeBook(@PathVariable("id") Long id, @RequestBody TradeBook tradeBookDetails) {
-        TradeBook updatedTradeBook = tradeBookService.updateTradeBook(id, tradeBookDetails);
-        if (updatedTradeBook != null) {
+    public ResponseEntity<TradeBook> updateTradeBook(@PathVariable Integer id, @RequestBody TradeBook tradeBook) {
+        if (tradeBookService.getTradeBookById(id).isPresent()) {
+            tradeBook.setTradeId(id);
+            TradeBook updatedTradeBook = tradeBookService.saveTradeBook(tradeBook);
             return ResponseEntity.ok(updatedTradeBook);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTradeBook(@PathVariable("id") Long id) {
-        tradeBookService.deleteTradeBook(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteTradeBook(@PathVariable Integer id) {
+        if (tradeBookService.getTradeBookById(id).isPresent()) {
+            tradeBookService.deleteTradeBook(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }
-

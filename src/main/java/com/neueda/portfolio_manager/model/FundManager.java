@@ -3,28 +3,36 @@ package com.neueda.portfolio_manager.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "fund_manager")
 public class FundManager {
-    @Id
-    @Column(name = "fund_manager_id")
-    private Long fundManagerId;
 
-    @Column(name = "fm_name")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "fund_manager_id")
+    private Integer fundManagerId;
+
+    @Column(length = 100, nullable = false)
+    @NotNull
     private String fmName;
 
-    @Column(name = "current_balance", precision = 12, scale = 4)
+    @Column(precision = 12, scale = 4, nullable = false)
+    @NotNull
     private BigDecimal currentBalance;
 
-    @Column(name = "datetime")
-    private LocalDateTime datetime;
+    @Column(name = "last_updated", nullable = false)
+    @NotNull
+    private LocalDateTime lastUpdated;
 
-    public Long getFundManagerId() {
+    // Getters and Setters
+
+    public Integer getFundManagerId() {
         return fundManagerId;
     }
 
-    public void setFundManagerId(Long fundManagerId) {
+    public void setFundManagerId(Integer fundManagerId) {
         this.fundManagerId = fundManagerId;
     }
 
@@ -44,11 +52,11 @@ public class FundManager {
         this.currentBalance = currentBalance;
     }
 
-    public LocalDateTime getDatetime() {
-        return datetime;
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
     }
 
-    public void setDatetime(LocalDateTime datetime) {
-        this.datetime = datetime;
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
     }
 }

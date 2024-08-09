@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class AssetService {
+
     @Autowired
     private AssetRepository assetRepository;
 
@@ -17,22 +18,12 @@ public class AssetService {
         return assetRepository.findAll();
     }
 
-    public Asset getAssetById(String symbol) {
-        Optional<Asset> asset = assetRepository.findById(symbol);
-        return asset.orElse(null);
+    public Optional<Asset> getAssetBySymbol(String symbol) {
+        return assetRepository.findById(symbol);
     }
 
     public Asset saveAsset(Asset asset) {
         return assetRepository.save(asset);
-    }
-
-    public Asset updateAsset(String symbol, Asset assetDetails) {
-        if (assetRepository.existsById(symbol)) {
-            assetDetails.setSymbol(symbol);
-            return assetRepository.save(assetDetails);
-        } else {
-            return null;
-        }
     }
 
     public void deleteAsset(String symbol) {

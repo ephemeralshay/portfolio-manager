@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class FundManagerService {
+
     @Autowired
     private FundManagerRepository fundManagerRepository;
 
@@ -17,25 +18,15 @@ public class FundManagerService {
         return fundManagerRepository.findAll();
     }
 
-    public FundManager getFundManagerById(Long id) {
-        Optional<FundManager> fundManager = fundManagerRepository.findById(id);
-        return fundManager.orElse(null);
+    public Optional<FundManager> getFundManagerById(Integer id) {
+        return fundManagerRepository.findById(id);
     }
 
     public FundManager saveFundManager(FundManager fundManager) {
         return fundManagerRepository.save(fundManager);
     }
 
-    public FundManager updateFundManager(Long id, FundManager fundManagerDetails) {
-        if (fundManagerRepository.existsById(id)) {
-            fundManagerDetails.setFundManagerId(id);
-            return fundManagerRepository.save(fundManagerDetails);
-        } else {
-            return null;
-        }
-    }
-
-    public void deleteFundManager(Long id) {
+    public void deleteFundManager(Integer id) {
         fundManagerRepository.deleteById(id);
     }
 }

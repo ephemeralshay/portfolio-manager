@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface FundBalanceHistoryRepository extends JpaRepository<FundBalanceHistory, Long> {
+public interface FundBalanceHistoryRepository extends JpaRepository<FundBalanceHistory, Integer> {
 }

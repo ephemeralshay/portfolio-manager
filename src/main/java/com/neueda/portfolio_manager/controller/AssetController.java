@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/assets")
@@ -21,33 +22,33 @@ public class AssetController {
     }
 
     @GetMapping("/{symbol}")
-    public ResponseEntity<Asset> getAssetBySymbol(@PathVariable("symbol") String symbol) {
-        Asset asset = assetService.getAssetById(symbol);
-        if (asset != null) {
-            return ResponseEntity.ok(asset);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<Asset> getAssetBySymbol(@PathVariable String symbol) {
+        Optional<Asset> asset = assetService.getAssetBySymbol(symbol);
+        return asset.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public Asset createAsset(@RequestBody Asset asset) {
-        return assetService.saveAsset(asset);
+    public ResponseEntity<Asset> createAsset(@RequestBody Asset asset) {
+        Asset createdAsset = assetService.saveAsset(asset);
+        return ResponseEntity.ok(createdAsset);
     }
 
     @PutMapping("/{symbol}")
-    public ResponseEntity<Asset> updateAsset(@PathVariable("symbol") String symbol, @RequestBody Asset assetDetails) {
-        Asset updatedAsset = assetService.updateAsset(symbol, assetDetails);
-        if (updatedAsset != null) {
+    public ResponseEntity<Asset> updateAsset(@PathVariable String symbol, @RequestBody Asset asset) {
+        if (assetService.getAssetBySymbol(symbol).isPresent()) {
+            asset.setSymbol(symbol);
+            Asset updatedAsset = assetService.saveAsset(asset);
             return ResponseEntity.ok(updatedAsset);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{symbol}")
-    public ResponseEntity<Void> deleteAsset(@PathVariable("symbol") String symbol) {
-        assetService.deleteAsset(symbol);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteAsset(@PathVariable String symbol) {
+        if (assetService.getAssetBySymbol(symbol).isPresent()) {
+            assetService.deleteAsset(symbol);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

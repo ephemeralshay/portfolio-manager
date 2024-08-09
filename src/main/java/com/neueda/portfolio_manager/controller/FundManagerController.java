@@ -7,9 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/fundmanagers")
+@RequestMapping("/api/fund-managers")
 public class FundManagerController {
 
     @Autowired
@@ -21,33 +22,33 @@ public class FundManagerController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<FundManager> getFundManagerById(@PathVariable("id") Long id) {
-        FundManager fundManager = fundManagerService.getFundManagerById(id);
-        if (fundManager != null) {
-            return ResponseEntity.ok(fundManager);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<FundManager> getFundManagerById(@PathVariable Integer id) {
+        Optional<FundManager> fundManager = fundManagerService.getFundManagerById(id);
+        return fundManager.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public FundManager createFundManager(@RequestBody FundManager fundManager) {
-        return fundManagerService.saveFundManager(fundManager);
+    public ResponseEntity<FundManager> createFundManager(@RequestBody FundManager fundManager) {
+        FundManager createdFundManager = fundManagerService.saveFundManager(fundManager);
+        return ResponseEntity.ok(createdFundManager);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FundManager> updateFundManager(@PathVariable("id") Long id, @RequestBody FundManager fundManagerDetails) {
-        FundManager updatedFundManager = fundManagerService.updateFundManager(id, fundManagerDetails);
-        if (updatedFundManager != null) {
+    public ResponseEntity<FundManager> updateFundManager(@PathVariable Integer id, @RequestBody FundManager fundManager) {
+        if (fundManagerService.getFundManagerById(id).isPresent()) {
+            fundManager.setFundManagerId(id);
+            FundManager updatedFundManager = fundManagerService.saveFundManager(fundManager);
             return ResponseEntity.ok(updatedFundManager);
-        } else {
-            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFundManager(@PathVariable("id") Long id) {
-        fundManagerService.deleteFundManager(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<Void> deleteFundManager(@PathVariable Integer id) {
+        if (fundManagerService.getFundManagerById(id).isPresent()) {
+            fundManagerService.deleteFundManager(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

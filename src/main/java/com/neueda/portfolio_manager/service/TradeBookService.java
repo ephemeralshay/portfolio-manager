@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class TradeBookService {
+
     @Autowired
     private TradeBookRepository tradeBookRepository;
 
@@ -17,25 +18,15 @@ public class TradeBookService {
         return tradeBookRepository.findAll();
     }
 
-    public TradeBook getTradeBookById(Long id) {
-        Optional<TradeBook> tradeBook = tradeBookRepository.findById(id);
-        return tradeBook.orElse(null);
+    public Optional<TradeBook> getTradeBookById(Integer id) {
+        return tradeBookRepository.findById(id);
     }
 
     public TradeBook saveTradeBook(TradeBook tradeBook) {
         return tradeBookRepository.save(tradeBook);
     }
 
-    public TradeBook updateTradeBook(Long id, TradeBook tradeBookDetails) {
-        if (tradeBookRepository.existsById(id)) {
-            tradeBookDetails.setTradeId(id);
-            return tradeBookRepository.save(tradeBookDetails);
-        } else {
-            return null;
-        }
-    }
-
-    public void deleteTradeBook(Long id) {
+    public void deleteTradeBook(Integer id) {
         tradeBookRepository.deleteById(id);
     }
 }

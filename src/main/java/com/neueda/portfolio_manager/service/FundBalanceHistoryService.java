@@ -10,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class FundBalanceHistoryService {
+
     @Autowired
     private FundBalanceHistoryRepository fundBalanceHistoryRepository;
 
@@ -17,27 +18,15 @@ public class FundBalanceHistoryService {
         return fundBalanceHistoryRepository.findAll();
     }
 
-    public FundBalanceHistory getFundBalanceHistoryById(Long id) {
-        Optional<FundBalanceHistory> fundBalanceHistory = fundBalanceHistoryRepository.findById(id);
-        return fundBalanceHistory.orElse(null);
+    public Optional<FundBalanceHistory> getFundBalanceHistoryById(Integer id) {
+        return fundBalanceHistoryRepository.findById(id);
     }
 
     public FundBalanceHistory saveFundBalanceHistory(FundBalanceHistory fundBalanceHistory) {
         return fundBalanceHistoryRepository.save(fundBalanceHistory);
     }
 
-    public FundBalanceHistory updateFundBalanceHistory(Long id, FundBalanceHistory fundBalanceHistoryDetails) {
-        if (fundBalanceHistoryRepository.existsById(id)) {
-            fundBalanceHistoryDetails.setId(id);
-            return fundBalanceHistoryRepository.save(fundBalanceHistoryDetails);
-        } else {
-            return null;
-        }
-    }
-
-    public void deleteFundBalanceHistory(Long id) {
+    public void deleteFundBalanceHistory(Integer id) {
         fundBalanceHistoryRepository.deleteById(id);
     }
-
-
 }

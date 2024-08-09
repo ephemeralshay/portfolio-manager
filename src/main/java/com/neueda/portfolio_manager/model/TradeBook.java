@@ -3,6 +3,7 @@ package com.neueda.portfolio_manager.model;
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "trade_book")
@@ -11,37 +12,47 @@ public class TradeBook {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "trade_id")
-    private Long tradeId;
+    private Integer tradeId;
 
-    @Column(name = "asset_id")
+    @Column(name = "asset_id", nullable = false)
+    @NotNull
     private String assetId;
 
-    @Column(name = "asset_price", precision = 12, scale = 4)
+    @Column(name = "asset_price", precision = 12, scale = 4, nullable = false)
+    @NotNull
     private BigDecimal assetPrice;
 
-    @Column(name = "quantity")
+    @Column(nullable = false)
+    @NotNull
     private Integer quantity;
 
-    @Column(name = "trade_amount", precision = 12, scale = 4)
+    @Column(name = "trade_amount", precision = 12, scale = 4, nullable = false)
+    @NotNull
     private BigDecimal tradeAmount;
 
-    @Column(name = "buy_sell")
+    @Column(name = "buy_sell", length = 1, nullable = false)
+    @NotNull
     private String buySell;
 
-    @Column(name = "tran_time")
+    @Column(name = "tran_time", nullable = false)
+    @NotNull
     private LocalDateTime tranTime;
 
-    @Column(name = "fund_manager_id")
-    private Long fundManagerId;
+    @Column(name = "fund_manager_id", nullable = false)
+    @NotNull
+    private Integer fundManagerId;
 
-    @Column(name = "tran_status")
+    @Column(name = "tran_status", length = 1, nullable = false)
+    @NotNull
     private String tranStatus;
 
-    public Long getTradeId() {
+    // Getters and Setters
+
+    public Integer getTradeId() {
         return tradeId;
     }
 
-    public void setTradeId(Long tradeId) {
+    public void setTradeId(Integer tradeId) {
         this.tradeId = tradeId;
     }
 
@@ -51,6 +62,14 @@ public class TradeBook {
 
     public void setAssetId(String assetId) {
         this.assetId = assetId;
+    }
+
+    public Integer getFundManagerId() {
+        return fundManagerId;
+    }
+
+    public void setFundManagerId(Integer fundManagerId) {
+        this.fundManagerId = fundManagerId;
     }
 
     public BigDecimal getAssetPrice() {
@@ -91,14 +110,6 @@ public class TradeBook {
 
     public void setTranTime(LocalDateTime tranTime) {
         this.tranTime = tranTime;
-    }
-
-    public Long getFundManagerId() {
-        return fundManagerId;
-    }
-
-    public void setFundManagerId(Long fundManagerId) {
-        this.fundManagerId = fundManagerId;
     }
 
     public String getTranStatus() {

@@ -26,7 +26,7 @@ public class AssetService {
         return assetRepository.save(asset);
     }
 
-    public void deleteAsset(String symbol) {
-        assetRepository.deleteById(symbol);
-    }
+//    public void deleteAsset(String symbol) {
+//        assetRepository.deleteById(symbol);
+//    }
 }

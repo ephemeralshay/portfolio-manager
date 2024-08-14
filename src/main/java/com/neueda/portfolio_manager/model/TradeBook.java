@@ -32,10 +32,9 @@ public class TradeBook {
 
     @Column(name = "buy_sell", length = 1, nullable = false)
     @NotNull
-    private String buySell;
+    private Character buySell;
 
     @Column(name = "tran_time", nullable = false)
-    @NotNull
     private LocalDateTime tranTime;
 
     @Column(name = "fund_manager_id", nullable = false)
@@ -44,7 +43,7 @@ public class TradeBook {
 
     @Column(name = "tran_status", length = 1, nullable = false)
     @NotNull
-    private String tranStatus;
+    private Character tranStatus;
 
     // Getters and Setters
 
@@ -96,12 +95,20 @@ public class TradeBook {
         this.tradeAmount = tradeAmount;
     }
 
-    public String getBuySell() {
+    public Character getBuySell() {
         return buySell;
     }
 
-    public void setBuySell(String buySell) {
+    public void setBuySell(Character buySell) {
         this.buySell = buySell;
+    }
+
+    public Character getTranStatus() {
+        return tranStatus;
+    }
+
+    public void setTranStatus(Character tranStatus) {
+        this.tranStatus = tranStatus;
     }
 
     public LocalDateTime getTranTime() {
@@ -112,11 +119,4 @@ public class TradeBook {
         this.tranTime = tranTime;
     }
 
-    public String getTranStatus() {
-        return tranStatus;
-    }
-
-    public void setTranStatus(String tranStatus) {
-        this.tranStatus = tranStatus;
-    }
 }

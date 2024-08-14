@@ -33,22 +33,22 @@ public class FundManagerController {
         return ResponseEntity.ok(createdFundManager);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<FundManager> updateFundManager(@PathVariable Integer id, @RequestBody FundManager fundManager) {
-        if (fundManagerService.getFundManagerById(id).isPresent()) {
-            fundManager.setFundManagerId(id);
-            FundManager updatedFundManager = fundManagerService.saveFundManager(fundManager);
-            return ResponseEntity.ok(updatedFundManager);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFundManager(@PathVariable Integer id) {
-        if (fundManagerService.getFundManagerById(id).isPresent()) {
-            fundManagerService.deleteFundManager(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<FundManager> updateFundManager(@PathVariable Integer id, @RequestBody FundManager fundManager) {
+//        if (fundManagerService.getFundManagerById(id).isPresent()) {
+//            fundManager.setFundManagerId(id);
+//            FundManager updatedFundManager = fundManagerService.saveFundManager(fundManager);
+//            return ResponseEntity.ok(updatedFundManager);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteFundManager(@PathVariable Integer id) {
+//        if (fundManagerService.getFundManagerById(id).isPresent()) {
+//            fundManagerService.deleteFundManager(id);
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 }

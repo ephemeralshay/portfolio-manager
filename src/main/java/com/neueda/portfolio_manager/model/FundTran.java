@@ -17,7 +17,7 @@ public class FundTran {
 
     @Column(name = "tran_type", length = 1, nullable = false)
     @NotNull
-    private String tranType;
+    private Character tranType;
 
     @Column(precision = 12, scale = 4, nullable = false)
     @NotNull
@@ -31,8 +31,7 @@ public class FundTran {
     @NotNull
     private Integer fundManagerId;
 
-    @Column(name = "fund_acc_balance", precision = 12, scale = 4, nullable = false)
-    @NotNull
+    @Column(name = "fund_acc_balance", precision = 12, scale = 4)
     private BigDecimal fundAccBalance;
 
     @Column(name = "bank_acc_no", length = 50)
@@ -40,11 +39,6 @@ public class FundTran {
 
     public FundTran() {
     }
-
-    public FundTran(Integer recId) {
-        this.recId = recId;
-    }
-
 
     public Integer getRecId() {
         return recId;
@@ -54,11 +48,11 @@ public class FundTran {
         this.recId = recId;
     }
 
-    public String getTranType() {
+    public Character getTranType() {
         return tranType;
     }
 
-    public void setTranType(String tranType) {
+    public void setTranType(Character tranType) {
         this.tranType = tranType;
     }
 

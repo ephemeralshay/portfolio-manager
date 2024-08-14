@@ -34,7 +34,7 @@ CREATE TABLE trade_book (
     quantity INT NOT NULL,
     trade_amount DECIMAL(12,4) NOT NULL,
     buy_sell CHAR(1) NOT NULL CHECK (buy_sell IN ('B', 'S')),
-    tran_time DATETIME NOT NULL,
+    tran_time DATETIME,
     fund_manager_id INT NOT NULL,
     tran_status CHAR(1) NOT NULL CHECK (tran_status IN ('I', 'A', 'C'))
 );
@@ -43,7 +43,7 @@ CREATE TABLE trade_book (
 CREATE TABLE fund_tran (
     rec_id INT PRIMARY KEY AUTO_INCREMENT,
     tran_type CHAR(1) NOT NULL CHECK (tran_type IN ('d', 'c')),
-    amount DECIMAL(12,4) NOT NULL,
+    amount DECIMAL(12,4),
     tran_time DATETIME NOT NULL,
     fund_manager_id INT NOT NULL,
     fund_acc_balance DECIMAL(12,4) NOT NULL,

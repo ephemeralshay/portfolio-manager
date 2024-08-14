@@ -26,7 +26,7 @@ public class FundManagerService {
         return fundManagerRepository.save(fundManager);
     }
 
-    public void deleteFundManager(Integer id) {
-        fundManagerRepository.deleteById(id);
-    }
+//    public void deleteFundManager(Integer id) {
+//        fundManagerRepository.deleteById(id);
+//    }
 }

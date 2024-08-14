@@ -33,22 +33,22 @@ public class AssetController {
         return ResponseEntity.ok(createdAsset);
     }
 
-    @PutMapping("/{symbol}")
-    public ResponseEntity<Asset> updateAsset(@PathVariable String symbol, @RequestBody Asset asset) {
-        if (assetService.getAssetBySymbol(symbol).isPresent()) {
-            asset.setSymbol(symbol);
-            Asset updatedAsset = assetService.saveAsset(asset);
-            return ResponseEntity.ok(updatedAsset);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{symbol}")
-    public ResponseEntity<Void> deleteAsset(@PathVariable String symbol) {
-        if (assetService.getAssetBySymbol(symbol).isPresent()) {
-            assetService.deleteAsset(symbol);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+//    @PutMapping("/{symbol}")
+//    public ResponseEntity<Asset> updateAsset(@PathVariable String symbol, @RequestBody Asset asset) {
+//        if (assetService.getAssetBySymbol(symbol).isPresent()) {
+//            asset.setSymbol(symbol);
+//            Asset updatedAsset = assetService.saveAsset(asset);
+//            return ResponseEntity.ok(updatedAsset);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+//
+//    @DeleteMapping("/{symbol}")
+//    public ResponseEntity<Void> deleteAsset(@PathVariable String symbol) {
+//        if (assetService.getAssetBySymbol(symbol).isPresent()) {
+//            assetService.deleteAsset(symbol);
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 }

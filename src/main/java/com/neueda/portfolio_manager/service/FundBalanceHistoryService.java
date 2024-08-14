@@ -26,7 +26,7 @@ public class FundBalanceHistoryService {
         return fundBalanceHistoryRepository.save(fundBalanceHistory);
     }
 
-    public void deleteFundBalanceHistory(Integer id) {
-        fundBalanceHistoryRepository.deleteById(id);
-    }
+//    public void deleteFundBalanceHistory(Integer id) {
+//        fundBalanceHistoryRepository.deleteById(id);
+//    }
 }

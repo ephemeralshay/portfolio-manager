@@ -33,22 +33,22 @@ public class FundBalanceHistoryController {
         return ResponseEntity.ok(createdFundBalanceHistory);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<FundBalanceHistory> updateFundBalanceHistory(@PathVariable Integer id, @RequestBody FundBalanceHistory fundBalanceHistory) {
-        if (fundBalanceHistoryService.getFundBalanceHistoryById(id).isPresent()) {
-            fundBalanceHistory.setId(id);
-            FundBalanceHistory updatedFundBalanceHistory = fundBalanceHistoryService.saveFundBalanceHistory(fundBalanceHistory);
-            return ResponseEntity.ok(updatedFundBalanceHistory);
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFundBalanceHistory(@PathVariable Integer id) {
-        if (fundBalanceHistoryService.getFundBalanceHistoryById(id).isPresent()) {
-            fundBalanceHistoryService.deleteFundBalanceHistory(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<FundBalanceHistory> updateFundBalanceHistory(@PathVariable Integer id, @RequestBody FundBalanceHistory fundBalanceHistory) {
+//        if (fundBalanceHistoryService.getFundBalanceHistoryById(id).isPresent()) {
+//            fundBalanceHistory.setId(id);
+//            FundBalanceHistory updatedFundBalanceHistory = fundBalanceHistoryService.saveFundBalanceHistory(fundBalanceHistory);
+//            return ResponseEntity.ok(updatedFundBalanceHistory);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteFundBalanceHistory(@PathVariable Integer id) {
+//        if (fundBalanceHistoryService.getFundBalanceHistoryById(id).isPresent()) {
+//            fundBalanceHistoryService.deleteFundBalanceHistory(id);
+//            return ResponseEntity.noContent().build();
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 }
